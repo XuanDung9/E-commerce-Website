@@ -1,0 +1,63 @@
+﻿@model IEnumerable<net105_sd18320.Models.BillDetails>
+
+@{
+    ViewData["Title"] = "Index";
+    var totalMoney = Model.Sum(p => p.Quantity * p.Prince); 
+}
+
+<h1>Hóa đơn chi tiết</h1>
+
+<h3>  Tổng tiền : @totalMoney </h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillId)
+            </th>
+        
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+         
+            <th>
+                @Html.DisplayNameFor(model => model.Prince)
+            </th>
+            <th>
+                ToTal
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prince)
+            </td>
+            <td>
+                    @(item.Quantity * item.Prince)
+            </td>
+            <td>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

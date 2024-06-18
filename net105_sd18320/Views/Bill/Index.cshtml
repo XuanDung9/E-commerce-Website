@@ -1,0 +1,83 @@
+﻿@model IEnumerable<net105_sd18320.Models.Bill>
+
+@{
+    ViewData["Title"] = "Index";
+    var total = ViewBag.TotalBill;
+}
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<h1>Danh sách đơn hàng của bạn</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>                                   
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+                <td>
+                        @Html.ActionLink("Chi tiết", "Index", "BillDetails", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+                    <form asp-controller="Bill" asp-action="Cancel" method="post" style="display:inline;">
+                        @if(item.Status==100)
+                            {
+                            <span class="btn-danger">Đã Hủy</span>
+                            }
+                            else
+                            {
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <button type="submit" class="btn btn-warning btn-sm">Hủy</button>
+                            }
+                    </form>
+                    <form asp-controller="Bill" asp-action="Reorder" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <button type="submit" class="btn btn-secondary btn-sm">Mua lại</button>
+                     </form>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>

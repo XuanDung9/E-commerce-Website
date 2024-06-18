@@ -1,0 +1,83 @@
+﻿@model IEnumerable<net105_sd18320.Models.CartDetails>
+@{
+    ViewData["Title"] = "Index";
+    decimal total = 0;
+    foreach (var item in Model)
+    {
+        if (item != null && item.Product != null)
+        {
+            total += item.Quantity * item.Product.Prince;
+        }
+        else
+        {
+            // Log thông tin chi tiết
+            System.Diagnostics.Debug.WriteLine(item == null ? "Item is null" : "Product is null for item with Quantity: " + item.Quantity);
+        }
+    }
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-primary">
+        @TempData["Success"]
+    </div>
+}
+@if (TempData["Error"] == null && Model.Any())
+{
+    <form action="@Url.Action("Pay", "Cart")" method="post">
+        <button type="submit" class="btn btn-primary">Thanh Toán</button>
+    </form>
+}
+<h1>Tổng tiền : @total</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                 @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
+                 @Html.ActionLink("Xóa", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
