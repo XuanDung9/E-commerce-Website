@@ -2,40 +2,46 @@
     ViewBag.Title = "Login";
 }
 
-<h2>Login</h2>
-@if (TempData["Status"] != null)
-{
-        <div class="alert alert-success">
-        @TempData["Status"]
-        </div>
-}
-@if (TempData["LoginRequired"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["LoginRequired"]
-    </div>
-}
-@if (TempData["AddToCart"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["AddToCart"]
-    </div>
-}
+<div class="d-flex flex-column justify-content-center align-items-center min-vh-100">
+    <div class="card shadow-sm p-4" style="width: 100%; max-width: 400px;">
+        <h2 class="text-center">Đăng nhập</h2>
+        @if (TempData["Status"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["Status"]
+            </div>
+        }
+        @if (TempData["LoginRequired"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["LoginRequired"]
+            </div>
+        }
+        @if (TempData["AddToCart"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["AddToCart"]
+            </div>
+        }
 
-@using (Html.BeginForm("Login", "Account", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
 
-    <div class="form-group">
-        @Html.Label("Username")
-        @Html.TextBox("username", "", new { @class = "form-control" })
+            <div class="form-group">
+                @Html.Label("Username")
+                @Html.TextBox("username", "", new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Password")
+                @Html.Password("password", "", new { @class = "form-control" })
+            </div>
+
+            <div class="form-group d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary mx-2">Đăng nhập</button>
+                <a href="@Url.Action("SignUp", "Account")" class="btn btn-link mx-2">Đăng ký</a>
+            </div>
+        }
     </div>
-
-    <div class="form-group">
-        @Html.Label("Password")
-        @Html.Password("password", "", new { @class = "form-control" })
-    </div>
-
-    <button type="submit" class="btn btn-primary">Login</button>
-    <a href="@Url.Action("SignUp", "Account")" class="btn btn-link">Register</a>
-}
+</div>
