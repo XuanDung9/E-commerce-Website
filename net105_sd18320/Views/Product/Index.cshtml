@@ -4,7 +4,7 @@
     ViewData["Title"] = " Index";
 }
 
-<h1> Product</h1>
+<h1> Danh sách sản phẩm </h1>
 
 @if (TempData["product"] != null)
 {
@@ -74,7 +74,7 @@
                 </td>
                 <td>
                     <form action="@Url.Action("AddToCart", "Product")" method="post">
-                        <div class="form-group">
+                        <div class="form-group">    
                             <label for="quantity">Số lượng:</label>
                             <input type="number" id="quantity" name="quantity" min="1" placeholder="Nhập số lượng" class="form-control" />
                         </div>

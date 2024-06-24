@@ -8,6 +8,7 @@ namespace net105_sd18320
 
 
             // Add services to the container.
+
             builder.Services.AddControllersWithViews();
             builder.Services.AddSession(option =>
             {
@@ -32,7 +33,7 @@ namespace net105_sd18320
             app.UseSession();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Account}/{action=Login}");
 
             app.Run();
         }

@@ -65,6 +65,7 @@ namespace net105_sd18320.Controllers
                 }
                 var cartDetail = new CartDetails()
                 {
+                    
                     Id = Guid.NewGuid(),
                     Username = username,
                     ProductId = item.ProductId,

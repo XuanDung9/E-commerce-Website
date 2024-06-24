@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<net105_sd18320.Models.CartDetails>
+
 @{
     ViewData["Title"] = "Index";
     decimal total = 0;
@@ -15,6 +16,7 @@
         }
     }
 }
+
 @if (TempData["Error"] != null)
 {
     <div class="alert alert-danger">
@@ -27,13 +29,7 @@
         @TempData["Success"]
     </div>
 }
-@if (TempData["Error"] == null && Model.Any())
-{
-    <form action="@Url.Action("Pay", "Cart")" method="post">
-        <button type="submit" class="btn btn-primary">Thanh Toán</button>
-    </form>
-}
-<h1>Tổng tiền : @total</h1>
+<h1> Đơn hàng thứ </h1>
 <table class="table">
     <thead>
         <tr>
@@ -56,28 +52,39 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                 @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
-                 @Html.ActionLink("Xóa", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Xóa", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@if (TempData["Error"] == null && Model.Any())
+{
+    <div class="total-container">
+        <h2>Tổng tiền: @total</h2>
+        <form action="@Url.Action("Pay", "Cart")" method="post">
+            <button type="submit" class="btn btn-primary btn-pay">Thanh Toán</button>
+        </form>
+    </div>
+}
